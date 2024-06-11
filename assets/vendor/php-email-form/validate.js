@@ -7,6 +7,14 @@ jQuery(document).ready(function($) {
     var f = $(this).find('.form-group'),
       ferror = false,
       emailExp = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
+    const publicDomains = [
+                "gmail.com",
+                "yahoo.com",
+                "outlook.com",
+                "hotmail.com",
+                "aol.com",
+                "icloud.com",
+            ];
 
     f.children('input').each(function() { // run all inputs
      
@@ -39,6 +47,14 @@ jQuery(document).ready(function($) {
           case 'email':
             if (!emailExp.test(i.val())) {
               ferror = ierror = true;
+            }else{
+              const email = i.val();
+              const emailDomain = email.split('@')[1];
+              const publicDomainsResult = !publicDomains.includes(emailDomain);
+              if (publicDomainsResult==false) {
+                //console.log(publicDomainsResult);
+                ferror = ierror = true;
+              }
             }
             break;
 
